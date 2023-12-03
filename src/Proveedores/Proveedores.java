@@ -6,24 +6,24 @@ public class Proveedores {
 	
 	ArrayList<String> datosBasicos = new ArrayList<String>();
 	//identificador del producto
-	ArrayList<String> codProductos = new ArrayList<String>();
+	//ArrayList<String> codProductos = new ArrayList<String>();
 	//costo producto por unidad
-	ArrayList<Integer> costoProductos = new ArrayList<Integer>();
+	//ArrayList<Integer> costoProductos = new ArrayList<Integer>();
 	//total de la cantidad del producto compradas al mes
-	ArrayList<Integer> cantProductos = new ArrayList<Integer>();
+	//ArrayList<Integer> cantProductos = new ArrayList<Integer>();
 	
 	//METODO CONSTRUCTOR ES EL CREATE PARA LOS PROVEEDORES
 	//Se añade un proveedor con un producto -> Requisito
 	public Proveedores(String id, String nombre, String apellido, 
-			String tel, String direccion, String cod, int costo, int cant) {
+			String tel, String direccion) {//, String cod, int costo, int cant) {
 		this.datosBasicos.add(id);
 		this.datosBasicos.add(nombre);
 		this.datosBasicos.add(apellido);
 		this.datosBasicos.add(tel);
 		this.datosBasicos.add(direccion);
-		this.codProductos.add(cod);
-		this.costoProductos.add(costo);
-		this.cantProductos.add(cant);
+		//this.codProductos.add(cod);
+		//this.costoProductos.add(costo);
+		//this.cantProductos.add(cant);
 	}
 	
 	//METODOS PARA READ LA INFORMACION
@@ -34,15 +34,15 @@ public class Proveedores {
 		info = info + "<p> Apellido:	" + datosBasicos.get(2) + "</p>";
 		info = info + "<p> Tel:	        " + datosBasicos.get(3) + "</p>";
 		info = info + "<p> Direccion:	" + datosBasicos.get(4) + "</p>";
-		info = info + "<p> ---------------------------</p>";
-		info = info + "<p> Cod. Prod.     Costo     Cantidad </p>";
-		
+		//info = info + "<p> ---------------------------</p>";
+		//info = info + "<p> Cod. Prod.     Costo     Cantidad </p>";
+		/*
 		for(int i=0; i<codProductos.size(); i++) {
 			info = info + "<p>" + codProductos.get(i) + "  " 
 		           + costoProductos.get(i) + "  " + cantProductos.get(i) + "</p>";
 		}
 		info = info + "<p> ---------------------------</p>";
-		
+		*/
 		return info;
 	}
 	
@@ -62,7 +62,7 @@ public class Proveedores {
 	public String getDireccion() {
 		return this.datosBasicos.get(4);
 	}
-	
+	/*
 	public int getCantProductos() {
 		return this.codProductos.size();
 	}
@@ -75,14 +75,14 @@ public class Proveedores {
 	public int getCantProducto(int indice) {
 		return this.cantProductos.get(indice);
 	}
-	
+	*/
 	
 	//METODOS PARA UPDATE INFORMACION Y AÑADIR PRODUCTOS
-	public void addProducto(String cod, int costo, int cant) {
+	/*public void addProducto(String cod, int costo, int cant) {
 		this.codProductos.add(cod);
 		this.costoProductos.add(costo);
 		this.cantProductos.add(cant);
-	}
+	}*/
 	
 	public void updateDatosBasicos(String id, String nombre, String apellido, 
 			String tel, String direccion) {
@@ -94,17 +94,17 @@ public class Proveedores {
 	}
 	
 	//actualizamos con este metodo el costo y la cant comprada al mes
-	public void updateProducto(String cod, int costo, int cant) {
+	/*public void updateProducto(String cod, int costo, int cant) {
 		int indice = codProductos.indexOf(cod);
 		this.costoProductos.set(indice, costo);
 		this.cantProductos.set(indice, cant);
-	}
+	}*/
 	
 	//METODO PARA BORRAR PRODUCTO
-	public void deleteProducto(String cod) {
+	/*public void deleteProducto(String cod) {
 		int indice = codProductos.indexOf(cod);
 		this.codProductos.remove(indice);
 		this.costoProductos.remove(indice);
 		this.cantProductos.remove(indice);
-	}
+	}*/
 }
