@@ -25,6 +25,8 @@ import View.View;
  */
 
 import Proveedores.Proveedores;
+import File.File;
+
 import java.util.ArrayList;
 
 
@@ -33,19 +35,25 @@ public class Main {
 	static ArrayList<Proveedores> proveedores = new ArrayList<Proveedores>();
 	//se necesitara para cuando se modifique proveedores, ya que es static
 	//Proveedores auxProveedor;
+	static File file = new File();
 
     public static void main(String[] args) {
+    	
         // TODO code application logic here
         //Model model = new Model();
         //View vista = new View();
         //Controller controller = new Controller(model, vista);
     	
-    	proveedores.add(new Proveedores("12332","Jose","Correa","3123442246","Cra. 15 10-54",
-				"are31425",60000,50));
+    	proveedores.add(new Proveedores("12332","Jose","Correa","3123442246","Cra. 15 10-54"));
     	
     	String txt = proveedores.get(0).readInformation();
     	
-    	System.out.println(txt);
+    	//System.out.println(txt);
+    	
+    	
+    	file.readFile("Proveedores");
+    	
+    	
     	
     }
     
