@@ -24,54 +24,51 @@ import View.View;
  * @author Xavier Lopez, Marvin Nuñez
  */
 
-import Proveedores.Proveedores;
-import File.File;
-
-import java.util.ArrayList;
-
+import Clientes.Clientes;
+import Productos.Productos;
 
 public class Main {
-	
-	static ArrayList<Proveedores> proveedores = new ArrayList<Proveedores>();
-	//se necesitara para cuando se modifique proveedores, ya que es static
-	//Proveedores auxProveedor;
-	static File file = new File();
-
     public static void main(String[] args) {
-    	
-        // TODO code application logic here
-        //Model model = new Model();
-        //View vista = new View();
-        //Controller controller = new Controller(model, vista);
-    	
-    	proveedores.add(new Proveedores("12332234","Jose","Correa","3123442246","Cra. 15 10-54"));
-    	proveedores.add(new Proveedores("17363678","Pedro","Marin","3121419849","Calle 6B 11-35"));
-    	proveedores.add(new Proveedores("14634439","Daniel","Perez","3637392321","Cra. 72C 47-26"));
+        // Crear instancias de Clientes y Productos
+        Clientes clientes = new Clientes();
+        Productos productos = new Productos();
 
-    	//String txt = proveedores.get(0).readInformation();
-    	
-    	//System.out.println(txt);
-    	ArrayList<String> prov = new ArrayList<String>();
-    	
-    	for(int i=0;i<proveedores.size();i++) {
-    		prov.add(proveedores.get(i).lineInformation());
-    	}
-    	
-    	file.writeFile("Proveedores", prov.get(0));
-    	file.writeFile("Proveedores", prov.get(1));    	
-    	
-    	System.out.println("Datos escritos");
-    	System.out.println(file.readFile("Proveedores"));
-    	
-    	file.updateFile("Proveedores", prov);
-    	
-    	System.out.println("Datos actualizados");    	
-    	System.out.println(file.readFile("Proveedores"));
-    	
-    	
-    	
+        // Crear algunos clientes y productos
+        clientes.crearCliente("1", "Juan", "Perez", "123456789", "Calle 123");
+        clientes.crearCliente("2", "Ana", "Lopez", "987654321", "Avenida XYZ");
+
+        productos.crearProducto("P001", "Prov001", "10.50", "100");
+        productos.crearProducto("P002", "Prov002", "20.75", "50");
+
+        // Mostrar información inicial
+        System.out.println("Información inicial de Clientes:");
+        System.out.println(clientes.leerClientes());
+
+        System.out.println("Información inicial de Productos:");
+        System.out.println(productos.leerProductos());
+
+        // Actualizar un cliente y un producto
+        clientes.actualizarCliente("1", "Juan", "Perez", "999999999", "Calle Nueva");
+        productos.actualizarProducto("P001", "Prov001", "12.00", "120");
+
+        // Mostrar información después de la actualización
+        System.out.println("Información después de la actualización de Clientes:");
+        System.out.println(clientes.leerClientes());
+
+        System.out.println("Información después de la actualización de Productos:");
+        System.out.println(productos.leerProductos());
+
+        // Borrar un cliente y un producto
+        clientes.borrarCliente("2");
+        productos.borrarProducto("P002");
+
+        // Mostrar información después de la eliminación
+        System.out.println("Información después de la eliminación de Clientes:");
+        System.out.println(clientes.leerClientes());
+
+        System.out.println("Información después de la eliminación de Productos:");
+        System.out.println(productos.leerProductos());
     }
-    
 }
 
 //Informacion importante
