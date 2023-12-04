@@ -27,6 +27,7 @@ public class Proveedores {
 	}
 	
 	//METODOS PARA READ LA INFORMACION
+	//lectura para pantalla
 	public String readInformation() {
 		String info = "<html><h1>INFORMACION DEL PROVEERDOR</h1>";
 		info = info + "<p> Id:          " + datosBasicos.get(0) + "</p>";
@@ -44,6 +45,14 @@ public class Proveedores {
 		info = info + "<p> ---------------------------</p>";
 		*/
 		return info;
+	}
+	
+	//lectura para archivo txt
+	public String lineInformation() {
+		String txt = datosBasicos.get(0)+"\t"+datosBasicos.get(1)+"\t"+
+				 datosBasicos.get(2)+"\t"+datosBasicos.get(3)+"\t"+
+				 datosBasicos.get(4);
+		return txt;
 	}
 	
 	//METODOS PARA OBTENER "GETTERS" INFORMACION DEL PROVEEDOR USADOS POR OTRAS CLASES
