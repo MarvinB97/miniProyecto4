@@ -1,10 +1,10 @@
 /*
  * ------------------------------------------------------------
  * Name Proyecto: miniProyecto-4
- * nombre participantes: Xavier Lopez, Marvin Nuñez
+ * nombre participantes: Xavier Lopez, Marvin Nuñez, Genaro Vegas
  * File: Main.java
  * Relaciones: clase principal en donde se ejecuta el codigo
- * Ultima modificacion 03-12-23
+ * Ultima modificacion 09-12-23
  * ------------------------------------------------------------
  */
 
@@ -12,65 +12,79 @@
 //Se importan las librerias
 //import javax.swing.*;
 
-
-
-/*import Controller.Controller;
-import Model.Model;
-import View.View;
-*/
-
 /**
  *
- * @author Xavier Lopez, Marvin Nuñez
+ * @author Xavier Lopez, Marvin Nuñez, Genaro Vegas
  */
 
-import Clientes.Clientes;
-import Productos.Productos;
+//import Proveedores.Proveedores;
+//import Clientes.Clientes;
+//import File.File;
+import MVC.*;
+
+
 
 public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-        // Crear instancias de Clientes y Productos
-        Clientes clientes = new Clientes();
-        Productos productos = new Productos();
-
-        // Crear algunos clientes y productos
-        clientes.crearCliente("1", "Juan", "Perez", "123456789", "Calle 123");
-        clientes.crearCliente("2", "Ana", "Lopez", "987654321", "Avenida XYZ");
-
-        productos.crearProducto("P001", "Prov001", "10.50", "100");
-        productos.crearProducto("P002", "Prov002", "20.75", "50");
-
-        // Mostrar información inicial
-        System.out.println("Información inicial de Clientes:");
-        System.out.println(clientes.leerClientes());
-
-        System.out.println("Información inicial de Productos:");
-        System.out.println(productos.leerProductos());
-
-        // Actualizar un cliente y un producto
-        clientes.actualizarCliente("1", "Juan", "Perez", "999999999", "Calle Nueva");
-        productos.actualizarProducto("P001", "Prov001", "12.00", "120");
-
-        // Mostrar información después de la actualización
-        System.out.println("Información después de la actualización de Clientes:");
-        System.out.println(clientes.leerClientes());
-
-        System.out.println("Información después de la actualización de Productos:");
-        System.out.println(productos.leerProductos());
-
-        // Borrar un cliente y un producto
-        clientes.borrarCliente("2");
-        productos.borrarProducto("P002");
-
-        // Mostrar información después de la eliminación
-        System.out.println("Información después de la eliminación de Clientes:");
-        System.out.println(clientes.leerClientes());
-
-        System.out.println("Información después de la eliminación de Productos:");
-        System.out.println(productos.leerProductos());
+        // TODO code application logic here
+        Model model = new Model();
+        View view = new View();
+        Controller controller = new Controller(model, view);
     }
+    
 }
-
+	//static ArrayList<Proveedores> proveedores = new ArrayList<Proveedores>();
+	
+	//static ArrayList<Clientes> clientes = new ArrayList<Clientes>();
+	//se necesitara para cuando se modifique proveedores, ya que es static
+	//Proveedores auxProveedor;
+	//static File file = new File();
+    	
+    	
+        // TODO code application logic here
+        //Model model = new Model();
+        //View vista = new View();
+        //Controller controller = new Controller(model, vista);
+    
+    	/*
+    	clientes.add(new Clientes("12332234","Jose","Correa","3123442246","Cra. 15 10-54"));
+    	clientes.add(new Clientes("17363678","Pedro","Marin","3121419849","Calle 6B 11-35"));
+    	clientes.add(new Clientes("14634439","Daniel","Perez","3637392321","Cra. 72C 47-26"));
+    	
+    	String txt = clientes.get(0).lineInformation();
+    	
+    	System.out.println(txt);
+    	*/
+    	/*
+    	ArrayList<String> prov = new ArrayList<String>();
+    	
+    	for(int i=0;i<proveedores.size();i++) {
+    		prov.add(proveedores.get(i).lineInformation());
+    	}
+    	*/
+    	
+    	/*
+    	file.writeFile("Proveedores", prov.get(0));
+    	file.writeFile("Proveedores", prov.get(1));    	
+    	
+    	System.out.println("Datos escritos");
+    	System.out.println(file.readFile("Proveedores"));
+    	
+    	file.updateFile("Proveedores", prov);
+    	
+    	System.out.println("Datos actualizados");    	
+    	System.out.println(file.readFile("Proveedores"));
+    	
+    	
+    	
+    }
+    
+}
+/*
 //Informacion importante
 /*Los txt tienen las columnas con los siguientes nombres
  * Proveedores.txt
@@ -78,7 +92,3 @@ public class Main {
  * Productos.txt
  * codProductos IdProveedor	costoProductos	cantProductos
  */
-
-
-
-
