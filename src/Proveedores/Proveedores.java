@@ -86,7 +86,7 @@ public class Proveedores {
 	}
 	*/
 	
-	//METODOS PARA UPDATE INFORMACION Y AÑADIR PRODUCTOS
+	//METODOS PARA UPDATE INFORMACION
 	/*public void addProducto(String cod, int costo, int cant) {
 		this.codProductos.add(cod);
 		this.costoProductos.add(costo);
