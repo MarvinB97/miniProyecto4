@@ -260,31 +260,40 @@ public class Model {
 
 	}
 	
+	
+	
+	
 	public void recoverBackup() {
 		String[] tipoAux = {"Proveedores", "Clientes", "Productos", "RegistroVentas"};
 	    vaciarVectores();
 		
 	    int k=0;
+	    int n;
+	    
 		while(k<4) {
 			String txt = file.readFile(tipoAux[k]);
 			String[] lineas = txt.split("\n");
-
+			n = lineas.length;
+			
 			// Crear un vector para almacenar las líneas   
-			String[] vectorDeLineas = new String[lineas.length];
-			int n;
+			String[] vectorDeLineas = new String[n];
+			
         
             // Almacenar cada línea en el vector
-            n = lineas.length;
+            
             for (int i = 0; i < n; i++) {
             	vectorDeLineas[i] = lineas[i];
+            	//System.out.println(vectorDeLineas[i]);
             }
         
+            
+            
             for (int i = 0; i < n; i++) {
             	String text = vectorDeLineas[i];
-        	    String[] val = text.split("\t");
+        	    String[] val = text.split("\\s+");
         	    
         	    //System.out.println(val[4]);
-        	    
+        	   
         	    if(k==0) {
                 	proveedores.add(new Proveedores(val[0],val[1],val[2],val[3],val[4]));
         	    }else if(k==1) {
