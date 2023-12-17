@@ -65,9 +65,4 @@ public class Clientes {
         clientes.set(4, direccion);
     }
     
-    /*
-    public void borrarCliente(String id) {
-        clientes.removeIf(cliente -> cliente.get(0).equals(id));
-    }
-    */
 }
