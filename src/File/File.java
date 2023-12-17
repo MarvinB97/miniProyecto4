@@ -55,7 +55,7 @@ public class File {
 			BufferedWriter escritor = new BufferedWriter(new FileWriter(name,false));
 			for(String ls: InfoGuardar) {
 				escritor.write(ls);
-				escritor.newLine();
+				//escritor.newLine();
 			}
 			escritor.close();
 		}catch (IOException ioe){
