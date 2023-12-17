@@ -289,9 +289,9 @@ public class Model {
                 	proveedores.add(new Proveedores(val[0],val[1],val[2],val[3],val[4]));
         	    }else if(k==1) {
         			clientes.add(new Clientes(val[0],val[1],val[2],val[3],val[4]));
-        	    }else if(k==1) {
+        	    }else if(k==2) {
         			productos.add(new Productos(val[0],val[1],val[2],val[3],val[4]));
-        	    }else if(k==1) {
+        	    }else if(k==3) {
         			registroVentas.add(new RegistroVentas(val[0],val[1],val[2],val[3],val[4]));
         	    }
             }
