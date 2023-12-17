@@ -6,8 +6,9 @@ public class Productos {
 
     private ArrayList<String> productos = new ArrayList<String>();
 
-    public Productos(String codProducto, String idProveedor, String costoProducto, String cantProducto) {
+    public Productos(String codProducto, String nombreProducto, String idProveedor, String costoProducto, String cantProducto) {
         productos.add(codProducto);
+        productos.add(nombreProducto);
         productos.add(idProveedor);
         productos.add(costoProducto);
         productos.add(cantProducto);
@@ -17,10 +18,11 @@ public class Productos {
 	//lectura para pantalla
 	public String readInformation() {
 		String info = "<html><h1>INFORMACION DEL PRODUCTO</h1>";
-		info = info + "<p> cod. Producto:    " + productos.get(0) + "</p>";
-		info = info + "<p> Id. Proveedor:    " + productos.get(1) + "</p>";
-		info = info + "<p> Costo Producto:   " + productos.get(2) + "</p>";
-		info = info + "<p> Cant. Producto:   " + productos.get(3) + "</p>";
+		info = info + "<p> cod. Producto:      " + productos.get(0) + "</p>";
+		info = info + "<p> nombre Producto:    " + productos.get(1) + "</p>";
+		info = info + "<p> Id. Proveedor:      " + productos.get(1) + "</p>";
+		info = info + "<p> Costo Producto:     " + productos.get(2) + "</p>";
+		info = info + "<p> Cant. Producto:     " + productos.get(3) + "</p>";
 
 		return info;
 	}
@@ -39,24 +41,28 @@ public class Productos {
   	public String getCodProducto() {
   		return this.productos.get(0);
   	}
-  	public String getIdProveedor() {
+  	public String getNombreProducto() {
   		return this.productos.get(1);
   	}
-  	public String getCostoProducto() {
+  	public String getIdProveedor() {
   		return this.productos.get(2);
   	}
-  	public String getCantProducto() {
+  	public String getCostoProducto() {
   		return this.productos.get(3);
+  	}
+  	public String getCantProducto() {
+  		return this.productos.get(4);
   	}
   	
   	
   	
 
-    public void updateDatosBasicos(String codProducto, String idProveedor, String costoProducto, String cantProducto) {
+    public void updateDatosBasicos(String codProducto, String nombreProducto, String idProveedor, String costoProducto, String cantProducto) {
     	productos.set(0, codProducto);
-    	productos.set(1, idProveedor);
-    	productos.set(2, costoProducto);
-    	productos.set(3, cantProducto);
+    	productos.set(1, nombreProducto);
+    	productos.set(2, idProveedor);
+    	productos.set(3, costoProducto);
+    	productos.set(4, cantProducto);
     }
     
     /*
