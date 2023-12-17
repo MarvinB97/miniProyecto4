@@ -9,6 +9,11 @@ package MVC;
 //import Modelo.Sonido;
 import javax.swing.*;
 
+import Clientes.Clientes;
+import Productos.Productos;
+import Proveedores.Proveedores;
+import RegistroVentas.RegistroVentas;
+
 import java.awt.*;
 //import java.util.*;
 import java.awt.event.ActionListener;
@@ -23,21 +28,34 @@ import java.awt.event.ActionListener;
 public class View {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
+	
+	//Icono
+	JLabel etiquetaImagen = new JLabel();
+
+	
 	CardLayout cardLayout;
 	
 	//PANELES DE LAS DIFERENTES VENTANAS
 	JPanel  panelInicio = new JPanel(), panelMenu = new JPanel(), 
-			panelFunciones = new JPanel();
-	//----Se introduce en un subpanel los botones
+			panelFunciones = new JPanel(), panelAgregar = new JPanel(),
+			panelConsulta = new JPanel(), panelMostrar = new JPanel(),
+			panelExito = new JPanel(), panelError = new JPanel();
+	
+	      //nota: primero pregunta en actualizar, borrar y mostrar, el id o cod.
+	      // en actualizar redirige a agregar para actualizar los campos
+	
+	
+	//----Se introduce en un subpanel los botones e inputs
 	JPanel btnPanelInicio = new JPanel(), btnPanelMenu = new JPanel(), 
-			btnPanelFunciones = new JPanel();
+		   btnPanelFunciones = new JPanel(), inputPanelAgregarContacto = new JPanel(),
+		   inputPanelConsulta = new JPanel();
 	
 	//TITULOS DE LAS DIFERENTES VENTANAS
-	JLabel labelInicio, labelMenu, labelFunciones;
-	
+	JLabel labelInicio, labelMenu, labelFunciones, labelAgregar,labelConsulta, 
+	       labelMostrar, labelExito,labelError;
 	
 	//BOTONES DEL INICIO
-	JButton btnMenu, btnCrearCopiaSeguridad, btnRestaurar;
+	JButton btnMenu, btnCrearCopiaSeguridad, btnRestaurarCopiaSeguridad;
 	//BOTONES DEL MENU
 	JButton btnClientes, btnProveedores, 
 	        btnProductos, btnRegistroVentas, btnAtrasMenu;
@@ -45,12 +63,27 @@ public class View {
 	JButton btnAgregar, btnActualizar, btnBorrar, btnMostrar, btnAtrasFunciones;
 	
 
-	//atributos de la clase (informacion)
-	//nota: esto se debe utilizar en las ventanas de agregar y actualizar informacion
-	JTextField inputId, inputNombre, inputApellido, inputTelefono,
-		           inputDireccion, inputCodProducto, 
-		           inputCostoProducto, inputCantProducto, inputFecha, 
-		           inputCantProductos, inputValorTotal; 
+	//LABELS E INPUTS AGREGAR - ACTUALIZAR
+	JTextField inputVal1, inputVal2, inputVal3, inputVal4, inputVal5;
+	JLabel lblVal1, lblVal2, lblVal3, lblVal4, lblVal5;
+	JButton btnGuardarAgregar;
+	
+	
+	//LABELS E INPUTS CONSULTA .. ACTUALIZAR, BORRAR, MOSTRAR (PREGUNTA EL ID O COD)
+	JLabel lblIdCodConsulta;
+	JTextField inputIdCodConsulta;
+	JButton btnAceptarConsulta;
+	
+	//LABELS MOSTRAR 
+	JLabel lblMostrarInformacion;
+	JButton btnIrInicioMostrar;
+	
+	
+	
+	//-----VENTANAS MENSAJES DE ERROR-----------
+	JLabel lblExito,lblError;
+	JButton btnIrInicioError, btnAtrasError;
+	
 	
 	
 	public View() {
@@ -63,25 +96,60 @@ public class View {
         panelInicio.setLayout(new BorderLayout());
         panelMenu.setLayout(new BorderLayout());
         panelFunciones.setLayout(new BorderLayout());
+        panelAgregar.setLayout(new BorderLayout());
+        panelConsulta.setLayout(new BorderLayout());
+        panelMostrar.setLayout(new BorderLayout());
+
+        
         
         panel.add(panelInicio, "inicio");
         panel.add(panelMenu, "menu");
         panel.add(panelFunciones, "funciones");
+        panel.add(panelAgregar, "agregar");
+        panel.add(panelConsulta, "consulta");//sirve para actualizar, borrar y mostrar
+        panel.add(panelMostrar, "mostrar");
         
-       
-
+        
+        panel.add(panelExito, "exito");
+        panel.add(panelError, "error");
+        
+        
+        //----COLOR DE FONDO DE LAS VENTANAS
+        panelInicio.setBackground(Color.BLACK);
+        panelMenu.setBackground(Color.BLACK);
+        panelFunciones.setBackground(Color.BLACK);
+        panelAgregar.setBackground(Color.BLACK);
+        panelConsulta.setBackground(Color.BLACK);
+        panelMostrar.setBackground(Color.BLACK);
+        panelExito.setBackground(Color.BLACK);
+        panelError.setBackground(Color.BLACK);
+        
+        
+        
         
         //TITULOS DE CADA VENTANA
-        labelInicio = new JLabel("<html><center><h2>Supermercado</h2>"
-      		            + "<h1>UV</h1></center></html>");
-        labelMenu = new JLabel("<html><center><h2>Menu</h2></html>");
-        labelFunciones = new JLabel("<html><center><h2>Opciones</h2></html>");
-      
+        labelInicio = new JLabel("<html><h2 style = 'color: white;'>Supermercado</h2>"
+      		            + "<center><h1 style = 'color: white;'>UV</h1></center></html>", SwingConstants.CENTER);
+        labelMenu = new JLabel("<html><h2 style = 'color: white;'>Menu</h2></html>", SwingConstants.CENTER);
+        labelFunciones = new JLabel("<html><h2 style = 'color: white;'>Opciones</h2></html>", SwingConstants.CENTER);
+        labelAgregar =  new JLabel("<html><h2 style = 'color: white;'>LLENA LOS CAMPOS</h2></html>", SwingConstants.CENTER);
+        labelConsulta = new JLabel("<html><h2 style = 'color: white;'>Ingresa el Id o Cod</h2></html>", SwingConstants.CENTER);
+        labelMostrar = new JLabel("<html><h2 style = 'color: white;'>Información Almacenada</h2></html>", SwingConstants.CENTER);
+        
+        labelExito =  new JLabel("<html><h2 style = 'color: white;'>Fue un Exito,</h2>"
+        		              + "<p style = 'color: white;'>Regresa al inicio.</p></html>", SwingConstants.CENTER);
+        labelError = new JLabel("<html><h2 style = 'color: white;'>A ocurrido un Error,</h2>"
+  		              + "<p style = 'color: white;'>Vuelve a intentarlo.</p></html>", SwingConstants.CENTER);
+        
+        
+        //--color letra titulos
+        
+        
         
         //------------BOTONES DEL INICIO---------------------
-        btnMenu = new JButton("Clientes");
+        btnMenu = new JButton("Menu");
         btnCrearCopiaSeguridad = new JButton("Crear Copia de Seguridad");
-        btnRestaurar = new JButton("Restaurar");
+        btnRestaurarCopiaSeguridad = new JButton("Restaurar Copia de Seguridad");
         //------------BOTONES DEL MENU---------------------
         btnClientes = new JButton("Clientes");
         btnProveedores = new JButton("Proveedores");
@@ -94,41 +162,53 @@ public class View {
         btnBorrar =  new JButton("Borrar");
         btnMostrar = new JButton("Mostrar");
         btnAtrasFunciones = new JButton("Atras");
+        //-------------LABELS E INPUTS DE AGREGAR---------------
+        inputVal1 = new JTextField();
+        inputVal2 = new JTextField();
+        inputVal3 = new JTextField();
+        inputVal4 = new JTextField();
+        inputVal5 = new JTextField();
+    	lblVal1 = new JLabel("VAL1");
+    	lblVal2 = new JLabel("VAL2");
+    	lblVal3 = new JLabel("VAL3");
+    	lblVal4 = new JLabel("VAL4");
+    	lblVal5 = new JLabel("VAL5");
+    	btnGuardarAgregar = new JButton("Guardar");
+       
+    	//-------------LABELS E INPUTS DE CONSULTA---ACTUALIZAR, BORRAR, MOSTRAR---------------
+    	//CONSULTA
+    	lblIdCodConsulta = new JLabel("Id o Cod");
+    	inputIdCodConsulta = new JTextField();
+        btnAceptarConsulta = new JButton("Aceptar");
+    	
+    	
+        //-------------BOTONES DE LAS MOSTRAR---------------
+        lblMostrarInformacion = new JLabel("");
+        btnIrInicioMostrar = new JButton("Ir al inicio");
         
         
+    	
+    	//-------------BOTONES DE LAS EXITO-ERROR---------------
+        btnIrInicioError = new JButton("Ir al Inicio");
+    	btnAtrasError = new JButton("Ir al Inicio");
         
-        
-        //--------------EJEMPLOS DE LOS INPUTS
-        //-------------INPUTS AGREGAR CONTACTOS-----------
-        /*JLabel Id = new JLabel("Id");
-        JLabel Nombre = new JLabel("Nombre");
-        JLabel Apellido = new JLabel("Apellido");
-        JLabel Direccion = new JLabel("Direccion");
-        JLabel Telefono = new JLabel("Telefono");
-        
-        inputId = new JTextField();
-        inputNombre = new JTextField();
-        inputApellido = new JTextField();
-        inputDireccion = new JTextField();
-        inputTelefono = new JTextField();
-        */
-        
-        
-        
-        
-        //------------------SUBPANELES DE LOS BLOQUES DE BOTONES
+    	
+    	
+        //------------------SUBPANELES DE LOS BLOQUES DE BOTONES E INPUTS
         
         btnPanelInicio.setLayout(new GridLayout(3,1,10,10));//1 columna, 3 filas
         btnPanelMenu.setLayout(new GridLayout(4,1,50,50));
         btnPanelFunciones.setLayout(new GridLayout(4,1,50,50));        
-        //inputPanelAgregarContacto.setLayout(new GridLayout(6,2,5,5));
+        inputPanelAgregarContacto.setLayout(new GridLayout(10,1,5,5));
+        inputPanelConsulta.setLayout(new GridLayout(3,1,5,5));
+        
         
 
         
         //-------------SE AÑADEN LOS BOTONES A SUS RESPECTIVOS PANELES------
         btnPanelInicio.add(btnMenu);
         btnPanelInicio.add(btnCrearCopiaSeguridad);
-        btnPanelInicio.add(btnRestaurar);
+        btnPanelInicio.add(btnRestaurarCopiaSeguridad);
         
         btnPanelMenu.add(btnProveedores);
         btnPanelMenu.add(btnClientes);
@@ -140,19 +220,26 @@ public class View {
         btnPanelFunciones.add(btnBorrar);
         btnPanelFunciones.add(btnMostrar);
         
-        /*
-        inputPanelAgregarContacto.add(Id);
-        inputPanelAgregarContacto.add(inputId);
-        inputPanelAgregarContacto.add(Nombre);
-        inputPanelAgregarContacto.add(inputNombre);
-        inputPanelAgregarContacto.add(Apellido);
-        inputPanelAgregarContacto.add(inputApellido);
-        inputPanelAgregarContacto.add(Direccion);
-        inputPanelAgregarContacto.add(inputDireccion);
-        inputPanelAgregarContacto.add(Telefono);
-        inputPanelAgregarContacto.add(inputTelefono);
-        */
+        
+        inputPanelAgregarContacto.add(lblVal1);
+        inputPanelAgregarContacto.add(inputVal1);
+        inputPanelAgregarContacto.add(lblVal2);
+        inputPanelAgregarContacto.add(inputVal2);
+        inputPanelAgregarContacto.add(lblVal3);
+        inputPanelAgregarContacto.add(inputVal3);
+        inputPanelAgregarContacto.add(lblVal4);
+        inputPanelAgregarContacto.add(inputVal4);
+        inputPanelAgregarContacto.add(lblVal5);
+        inputPanelAgregarContacto.add(inputVal5);
+        
    
+        //consulta
+        inputPanelConsulta.add(lblIdCodConsulta);
+        inputPanelConsulta.add(inputIdCodConsulta);
+        inputPanelConsulta.add(btnAceptarConsulta);
+
+        
+        
         
         //--------------------LOS BLOQUES SE AÑADEN A CADA PANEL DE UNA VENTANA
         
@@ -169,14 +256,32 @@ public class View {
         panelFunciones.add(labelFunciones, BorderLayout.NORTH);
         panelFunciones.add(btnPanelFunciones, BorderLayout.CENTER);
         panelFunciones.add(btnAtrasFunciones, BorderLayout.SOUTH);
+
+        //---VENTANA AGREGAR--
+        panelAgregar.add(labelAgregar, BorderLayout.NORTH);
+        panelAgregar.add(inputPanelAgregarContacto, BorderLayout.CENTER);
+        panelAgregar.add(btnGuardarAgregar, BorderLayout.SOUTH);
         
         
-        //--VENTANA INPUTS--
-        /*
-        panel3.add(label3, BorderLayout.NORTH);
-        panel3.add(inputPanelAgregarContacto, BorderLayout.CENTER);
-        panel3.add(btnPanelAgregarContacto, BorderLayout.SOUTH);
-        */
+        //---VENTANA CONSULTA--
+        panelConsulta.add(labelConsulta, BorderLayout.NORTH);
+        panelConsulta.add(inputPanelConsulta, BorderLayout.SOUTH);
+        
+        
+        //---VENTANA MOSTRAR--
+        panelMostrar.add(labelMostrar, BorderLayout.NORTH);
+        panelMostrar.add(lblMostrarInformacion, BorderLayout.CENTER);
+        panelMostrar.add(btnIrInicioMostrar, BorderLayout.SOUTH);
+    	
+        
+        //---VENTANA EXITO-ERROR--
+        panelExito.add(labelExito, BorderLayout.CENTER);
+        panelExito.add(btnIrInicioError, BorderLayout.SOUTH);
+        
+        panelError.add(labelError, BorderLayout.CENTER);
+        panelError.add(btnAtrasError, BorderLayout.SOUTH);
+        
+        
         
         //---EL PANEL PRINCIPAL QUE CONTIENE LOS PANELES DE LAS VENTANAS Y 
         //A SU VEZ ELLOS TIENEN LOS SUBPANELES DE BOTONES, SE AÑADE A EL FRAME
@@ -193,27 +298,7 @@ public class View {
 	//----------CAMBIAR PANEL-----------
 	public void cambiarVentana(String window) {
 		this.cardLayout.show(panel, window);
-	}
-	
-	//SIRVEN COMO EJEMPLO DE LOS INPUTS EN CLIENTES, PROVEE, ETC
-	//--------getters-Inputs-----------
-	public String getId() {
-		return this.inputId.getText();
-	}
-	public String getNombre() {
-		return this.inputNombre.getText();
-	}
-	public String getApellido() {
-		return this.inputApellido.getText();
-	}
-	public String getDireccion() {
-		return this.inputDireccion.getText();
-	}
-	public String getTelefono() {
-		return this.inputTelefono.getText();
-	}
-	
-	
+	}	
 	
 	
 	//-----------ACTIONS LISTENER DE LA VENTANA INICIO------------
@@ -223,8 +308,8 @@ public class View {
 	public void btnCrearCopiaSeguridadListener(ActionListener listener) {
 	    btnCrearCopiaSeguridad.addActionListener(listener);
 	}
-	public void btnRestaurarListener(ActionListener listener) {
-	    btnRestaurar.addActionListener(listener);
+	public void btnRestaurarCopiaSeguridadListener(ActionListener listener) {
+		btnRestaurarCopiaSeguridad.addActionListener(listener);
 	}
 	
 	//-----------ACTIONS LISTENER DE LA VENTANA MENU------------
@@ -242,7 +327,38 @@ public class View {
 	}
 	public void btnAtrasMenuListener(ActionListener listener) {
 	    btnAtrasMenu.addActionListener(listener);
+	    btnIrInicioError.addActionListener(listener);
+	    btnIrInicioMostrar.addActionListener(listener);
+	    btnAtrasError.addActionListener(listener);
 	}
+	
+	
+	//cambiar etiquetas de los labels en agregar
+	public void setTipo(String tipo) {
+		if((tipo == "proveedores")||(tipo == "clientes")) {
+	    	lblVal1.setText("Id");
+	    	lblVal2.setText("Nombre");
+	    	lblVal3.setText("Apellido");
+	    	lblVal4.setText("Tel");
+	    	lblVal5.setText("Direccion");
+		}else if(tipo == "productos"){
+			lblVal1.setText("Codigo");
+	    	lblVal2.setText("Nombre");
+	    	lblVal3.setText("Id Proveedor");
+	    	lblVal4.setText("Costo Producto");
+	    	lblVal5.setText("Cantidad Producto");
+		}else if(tipo == "registroVentas"){
+			lblVal1.setText("Id Cliente");
+	    	lblVal2.setText("Cod. Producto");
+	    	lblVal3.setText("Fecha");
+	    	lblVal4.setText("Cantidad Producto");
+	    	lblVal5.setText("Valor Total");
+		}
+	}
+	
+	
+	
+	
 	
 	//-----------ACTIONS LISTENER DE LA VENTANA FUNCIONES------------
 	public void btnAgregarListener(ActionListener listener) {
@@ -262,24 +378,58 @@ public class View {
 	}	
 	
 	
-	/*
-	public void btnInicioListener(ActionListener listener) {
-	    btnMenu1.addActionListener(listener);
-	    btnMenu2.addActionListener(listener);
-	    btnMenu3.addActionListener(listener);
+	//-----------ACTIONS LISTENER DE LA VENTANA AGREGAR------------
+	//--------getters-Inputs-----------
+	public String getVal1() {
+		return this.inputVal1.getText();
+	}
+	public String getVal2() {
+		return this.inputVal2.getText();
+	}
+	public String getVal3() {
+		return this.inputVal3.getText();
+	}
+	public String getVal4() {
+		return this.inputVal4.getText();
+	}
+	public String getVal5() {
+		return this.inputVal5.getText();
 	}
 	
-	public void btnProfesorListener(ActionListener listener) {
-		btntipoProfesores.addActionListener(listener);
-	}
-	public void btnEstudianteListener(ActionListener listener) {
-		btntipoEstudiantes.addActionListener(listener);
-	}
-	public void btnEmpleadoListener(ActionListener listener) {
-		btntipoEmpleados.addActionListener(listener);
+	
+	public void btnGuardarAgregarListener(ActionListener listener) {
+	    btnGuardarAgregar.addActionListener(listener);
 	}
 	
-	public void btnGuardarListener(ActionListener listener) {
-	    btnGuardar.addActionListener(listener);
-	}*/
+	
+	//-----------ACTIONS LISTENER DE LA VENTANA CONSULTA------------
+	//--------getters-Inputs-----------
+	public String getConsulta() {
+		return this.inputIdCodConsulta.getText();
+	}
+	
+	public void btnAceptarConsultaListener(ActionListener listener) {
+		btnAceptarConsulta.addActionListener(listener);
+	}
+	
+	public void setInformation(String val1, String val2, String val3, String val4,
+			String val5) {
+		inputVal1.setText(val1);
+        inputVal2.setText(val2);
+        inputVal3.setText(val3);
+        inputVal4.setText(val4);
+        inputVal5.setText(val5);	
+	}
+
+	
+	
+	//-----------ACTIONS LISTENER DE LA VENTANA MOSTRAR------------
+	
+	public void setInformationShow(String lbl) {
+		lblMostrarInformacion.setText(lbl);
+	}
+	
+	
+	
+	
 }
