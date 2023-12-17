@@ -20,7 +20,7 @@ public class Controller {
       //---CONTROLLER VENTANA INICIO
         view.btnMenuListener(new buttonMenuListener());
         view.btnCrearCopiaSeguridadListener(new buttonCrearCopiaSeguridadListener());
-        view.btnRestaurarListener(new buttonRestaurarListener());
+        view.btnRestaurarCopiaSeguridadListener(new buttonRestaurarCopiaSeguridadListener());
       //---CONTROLLER VENTANA MENU
         view.btnProveedoresListener(new buttonProveedoresListener());
         view.btnClientesListener(new buttonClientesListener());
@@ -33,7 +33,10 @@ public class Controller {
         view.btnBorrarListener(new buttonBorrarListener());
         view.btnMostrarListener(new buttonMostrarListener());
         view.btnAtrasFuncionesListener(new buttonAtrasFuncionesListener());
-        
+      //---CONTROLLER VENTANA AGREGAR
+        view.btnGuardarAgregarListener(new buttonGuardarAgregarListener());
+      //---CONTROLLER VENTANA CONSULTA 
+        view.btnAceptarConsultaListener(new buttonAceptarConsultaListener());
         
         
 
@@ -48,12 +51,14 @@ public class Controller {
     }
     class buttonCrearCopiaSeguridadListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//model.
+        	model.createBackup();
+        	view.cambiarVentana("exito");
         }
     }
-    class buttonRestaurarListener implements ActionListener {
+    class buttonRestaurarCopiaSeguridadListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//model.
+        	model.recoverBackup();
+        	view.cambiarVentana("exito");
         }
     }
     
@@ -62,25 +67,29 @@ public class Controller {
     class buttonProveedoresListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	view.cambiarVentana("funciones");
-        	//model. va a proveedores
+        	view.setTipo("proveedores");
+        	model.setTipo("proveedores");
         }
     }
     class buttonClientesListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	view.cambiarVentana("funciones");
-        	//model. va a clientes
+        	view.setTipo("clientes");
+        	model.setTipo("clientes");
         }
     }
     class buttonProductosListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	view.cambiarVentana("funciones");
-        	//model. va a productos
+        	view.setTipo("productos");
+        	model.setTipo("productos");
         }
     }
     class buttonRegistroVentasListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
         	view.cambiarVentana("funciones");
-        	//model. va a registro V.
+        	view.setTipo("registroVentas");
+        	model.setTipo("registroVentas");
         }
     }
     class buttonAtrasMenuListener implements ActionListener {
@@ -93,22 +102,26 @@ public class Controller {
   //---CONTROLLER VENTANA FUNCIONES
     class buttonAgregarListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//view.cambiarVentana("agregar");
+        	model.setFuncion("agregar");
+        	view.cambiarVentana("agregar");
         }
     }
     class buttonActualizarListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//view.cambiarVentana("Actualizar");
+        	model.setFuncion("actualizar");
+        	view.cambiarVentana("consulta");
         }
     }
     class buttonBorrarListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//view.cambiarVentana("Borrar");
+        	model.setFuncion("borrar");
+        	view.cambiarVentana("consulta");
         }
     }
     class buttonMostrarListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-        	//view.cambiarVentana("Mostrar")
+        	model.setFuncion("mostrar");
+        	view.cambiarVentana("consulta");
         }
     }
     class buttonAtrasFuncionesListener implements ActionListener {
@@ -116,6 +129,61 @@ public class Controller {
         	view.cambiarVentana("menu");
         }
     }
+    
+    
+    
+    
+  //---CONTROLLER VENTANA AGREGAR
+    class buttonGuardarAgregarListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+        	try {
+        		model.addInformation(view.getVal1(), view.getVal2(), view.getVal3(),
+        			view.getVal4(), view.getVal5());
+        		view.cambiarVentana("exito");
+        		view.setInformation("","","","","");//limpia los inputs
+        	}catch(Exception e){
+            	view.cambiarVentana("error");
+        	}
+        }
+    }
+    
+    
+   
+  //---CONTROLLER VENTANA CONSULTA
+    class buttonAceptarConsultaListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+        	try {
+        		if(model.getFuncion().equals("actualizar")) {
+        			model.setIdCod(view.getConsulta());
+        			view.setInformation(model.getVal1(),model.getVal2(),model.getVal3(),
+            				model.getVal4(),model.getVal5());
+            		view.cambiarVentana("agregar");
+				}else if(model.getFuncion().equals("borrar")) {
+					model.setIdCod(view.getConsulta());
+					if(model.indice() == -1) {
+						view.cambiarVentana("error");
+					}else {
+						model.eraseInformation();
+						view.cambiarVentana("exito");
+					}
+				}else if(model.getFuncion().equals("mostrar")) {
+					model.setIdCod(view.getConsulta());
+					if(model.indice() == -1) {
+						view.cambiarVentana("error");
+					}else {
+						model.showInformation();
+						view.setInformationShow(model.showInformation());
+						view.cambiarVentana("mostrar");
+					}
+				}
+        	}catch(Exception e){
+            	view.cambiarVentana("error");
+        	}
+        }
+    }
+    
+    
+    
     
     
     
